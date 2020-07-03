@@ -99,6 +99,17 @@ fn main() -> Result<(), Error> {
 	result
 }
 
+struct DefaultRooter {
+}
+
+impl CrateRooter for DefaultRooter {
+	/// In our case, the crate root will always be `crate`, as we are not referencing
+	/// types from other crates.
+	fn root(&self, _: &Vec<&str>) -> String {
+		"crate".into()
+	}
+}
+
 fn run(supported_version: supported_version::SupportedVersion, out_dir_base: &std::path::Path, client: &reqwest::blocking::Client) -> Result<(), Error> {
 	use std::io::Write;
 
